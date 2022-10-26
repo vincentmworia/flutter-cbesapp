@@ -1,7 +1,8 @@
-import 'package:cbesapp/utilities/inverter_api.dart';
-import 'package:cbesapp/widgets/custom_grid_view.dart';
-import 'package:cbesapp/widgets/inverter_screen_item.dart';
+import 'package:cbesapp/widgets/inverter_screen_items/operation_mode_item.dart';
 import 'package:flutter/material.dart';
+
+import '../utilities/inverter_api.dart';
+import '../widgets/inverter_screen_items/parameter_item.dart';
 
 class InverterScreen extends StatelessWidget {
   const InverterScreen({Key? key}) : super(key: key);
@@ -15,6 +16,7 @@ class InverterScreen extends StatelessWidget {
           title,
           style: TextStyle(
             fontSize: 25.0,
+            overflow: TextOverflow.fade,
             color: Theme.of(context).colorScheme.secondary,
             fontWeight: FontWeight.bold,
             letterSpacing: 5.0,
@@ -47,38 +49,29 @@ class InverterScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     List<Map> mainDataList = [];
+    List<Map> operationModeDataList = [];
     late String faultCode;
     late String warningCode;
 
-    // inverterDataMain.forEach((key, value) {
-    //   if (key == "input_voltage" ||
-    //       key == "output_voltage" ||
-    //       key == "input_frequency" ||
-    //       key == "pv_voltage" ||
-    //       key == "pv_current" ||
-    //       key == "pv_power" ||
-    //       key == "ac_and_pv_charging_current" ||
-    //       key == "ac_charging_current" ||
-    //       key == "pv_charging_current") {
-    //     mainDataList.add({key: value});
-    //   }
-    //   if (key == "fault_reference_code") {
-    //     faultCode = value;
-    //   }
-    //   if (key == "warning_indicator") {
-    //     warningCode = value;
-    //   }
-    // });
-
-    // print(useInverterData);
     useInverterData.forEach((key, value) {
       if (key == "main_data") {
         (value as Map).forEach((k, val) {
-          mainDataList.add({k: val });
+          mainDataList.add({k: val});
+        });
+      }
+      if (key == "fault_reference_code") {
+        faultCode = value as String;
+      }
+      if (key == "warning_indicator") {
+        warningCode = value as String;
+      }
+      if (key == "operation_modes") {
+        (value as Map).forEach((k, val) {
+          operationModeDataList.add({k: val});
         });
       }
     });
-    print(mainDataList);
+    print(operationModeDataList);
     return SafeArea(
       child: Scaffold(
         appBar: AppBar(
@@ -94,15 +87,19 @@ class InverterScreen extends StatelessWidget {
               child: Column(
                 children: [
                   _groupParameters(context, "PARAMETERS", mainDataList),
-                  // _groupAdditionalInfo(
-                  //     context, "FAULT - $faultCode", faultReferenceCode(faultCode)),
-                  // const Divider(),
-                  // _groupAdditionalInfo(
-                  //     context, "WARNING - $warningCode", warningIndicator(warningCode)),
-                  // const Divider(),
-                  // const SizedBox(
-                  //   height: 20,
-                  // )
+                  _groupAdditionalInfo(context, "FAULT - $faultCode",
+                      faultReferenceCode(faultCode)),
+                  const Divider(),
+                  _groupAdditionalInfo(context, "WARNING - $warningCode",
+                      warningIndicator(warningCode)),
+                  const Divider(),
+                  _titleText(context, "OPERATION MODES"),
+                  ...operationModeDataList
+                      .map((e) => OperationModeItem(e))
+                      .toList(),
+                  const SizedBox(
+                    height: 20,
+                  )
                 ],
               ),
             ),
