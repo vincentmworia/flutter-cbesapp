@@ -1,3 +1,4 @@
+import 'package:cbesapp/main.dart';
 import 'package:flutter/material.dart';
 
 import '../widgets/home_screen_item.dart';
@@ -13,7 +14,7 @@ class HomeScreen extends StatelessWidget {
     return SafeArea(
       child: Scaffold(
         appBar: AppBar(
-          title: const Text("CBES PROJECT"),
+          title: const Text(MyApp.appTitle),
         ),
         body: const CustomGridView([
           HomeScreenItem(title: inverter, imageUrl: "inverter_image.jpg"),

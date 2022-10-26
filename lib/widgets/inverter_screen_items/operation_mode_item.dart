@@ -6,12 +6,14 @@ class OperationModeItem extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    // TODO USE CARDS IN GRID VIEW???
     return Card(
       elevation: 5,
+      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
       child: Container(
         height: 200,
-        color: Colors.red,
-        child: Text(itemData.toString()),
+        // color: Colors.red,
+        child: Center(child: Text(itemData.toString())),
       ),
     );
   }

@@ -10,7 +10,7 @@ void main() {
 class MyApp extends StatelessWidget {
   const MyApp({Key? key}) : super(key: key);
 
-  static const appTitle = 'IOT TEMPLATE';
+  static const appTitle = 'CBES IOT';
   static const _primaryColor = Color(0xff2B2132);
   static const _secondaryColor = Color(0xffC76546);
 
@@ -27,7 +27,7 @@ class MyApp extends StatelessWidget {
           secondary: _secondaryColor,
         ),
         appBarTheme: const AppBarTheme(
-          toolbarHeight: 65,
+          toolbarHeight: 75,
           centerTitle: true,
           elevation: 0,
           titleTextStyle: TextStyle(
