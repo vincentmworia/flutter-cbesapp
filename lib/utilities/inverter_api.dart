@@ -1,12 +1,3 @@
-import 'dart:convert';
-/*
-
-D:\PROJECTS\python\cbes
-
-python inverter_mqtt.py
-
-*/
-
 final Map inverterData = {
   "main_data": {
     "input_voltage": "230V",
@@ -85,54 +76,57 @@ power from battery and /or PV power.*/
 String faultReferenceCode(String code) {
   var faultEvent = "null";
   switch (code) {
-    case "F01":
+    case "f00":
+      faultEvent = "-" * 5;
+      break;
+    case "f01":
       faultEvent = "Fan is locked when inverter is off.";
       break;
-    case "F02":
+    case "f02":
       faultEvent = "Over temperature";
       break;
-    case "F03":
+    case "f03":
       faultEvent = "Battery voltage is too high";
       break;
-    case "F04":
+    case "f04":
       faultEvent = "Battery voltage is too low";
       break;
-    case "F05":
+    case "f05":
       faultEvent = """
       Output short circuited or over temperature is detected by
 internal converter components.""";
       break;
-    case "F06":
+    case "f06":
       faultEvent = "Output voltage is too high";
       break;
-    case "F07":
+    case "f07":
       faultEvent = "Overload time out";
       break;
-    case "F08":
+    case "f08":
       faultEvent = "Bus voltage is too high";
       break;
-    case "F09":
+    case "f09":
       faultEvent = "Bus soft start failed";
       break;
-    case "F51":
+    case "f51":
       faultEvent = "Over current or surge";
       break;
-    case "F52":
+    case "f52":
       faultEvent = "Bus voltage is too low";
       break;
-    case "F53":
+    case "f53":
       faultEvent = "Inverter soft start failed";
       break;
-    case "F55":
+    case "f55":
       faultEvent = "Over DC voltage in AC output";
       break;
-    case "F57":
+    case "f57":
       faultEvent = "Current sensor failed";
       break;
-    case "F58":
+    case "f58":
       faultEvent = "Output voltage is too low";
       break;
-    case "F59":
+    case "f59":
       faultEvent = "PV voltage is over limitation";
       break;
   }
@@ -142,6 +136,9 @@ internal converter components.""";
 String warningIndicator(String code) {
   var warningEvent = "null";
   switch (code) {
+    case "00":
+      warningEvent = "-" * 5;
+      break;
     case "01":
       warningEvent = "Fan is locked when inverter is on.";
       break;
@@ -181,7 +178,7 @@ String warningIndicator(String code) {
 
 String decodeKey(String key) {
   var rawKey = "null";
-  switch (key){
+  switch (key) {
     case "input_voltage":
       rawKey = "Input Voltage";
       break;
@@ -209,6 +206,12 @@ String decodeKey(String key) {
     case "pv_charging_current":
       rawKey = "PC charging current";
       break;
+    case "fault_reference_code":
+      rawKey = "Fault";
+      break;
+    case "Warning":
+      rawKey = "PC charging current";
+      break;
   }
   return rawKey;
 }
@@ -224,7 +227,7 @@ Map inverterDataMain = {
   "ac_charging_current": "0",
   "pv_charging_current": "0",
   "fault_reference_code": "f02",
-  "warning_indicator": "06",
+  "warning_indicator": "07",
   "standby_charging_by_utility_and_pv_energy": "false",
   "standby_charging_by_utility": "false",
   "standby_charging_by_pv_energy": "false",
@@ -242,4 +245,47 @@ Map inverterDataMain = {
   "battery_mode_pv_energy_to_loads_and_charge_battery_no_utility": "false",
   "battery_mode_power_from_battery": "false",
   "battery_mode_power_from_pv_energy": "false",
+};
+
+var useInverterData = {
+  "main_data": {
+    "input_voltage": "200" + "V",
+    "output_voltage": "234" + "V",
+    "input_frequency": "50" + "Hz",
+    "pv_voltage": "321" + "V",
+    "pv_current": "23" + "A",
+    "pv_power": "123" + "W",
+    "ac_and_pv_charging_current": "54" + "A",
+    "ac_charging_current": "11" + "A",
+    "pv_charging_current": "5" + "A",
+  },
+  "fault_reference_code": "f02",
+  "warning_indicator": "07",
+  "operation_modes": {
+    "standby_mode": {
+      "charging_by_utility_and_pv_energy": "false",
+      "charging_by_utility": "false",
+      "charging_by_pv_energy": "false",
+      "no_charging": "false",
+    },
+    "fault_mode": {
+      "charging_by_utility_and_pv_energy": "false",
+      "charging_by_utility": "false",
+      "charging_by_pv_energy": "false",
+      "no_charging": "false",
+    },
+    "line_mode": {
+      "charging_by_utility_and_pv_energy": "false",
+      "charging_by_utility": "false",
+      "solar_energy_not_sufficient": "false",
+      "battery_not_connected": "false",
+      "power_from_utility": "false",
+    },
+    "battery_mode": {
+      "power_from_battery_and_pv_energy": "false",
+      "pv_energy_to_loads_and_charge_battery_no_utility": "false",
+      "power_from_battery": "false",
+      "power_from_pv_energy": "false",
+    },
+  }
 };

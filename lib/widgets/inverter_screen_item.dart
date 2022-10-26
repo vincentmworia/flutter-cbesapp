@@ -11,14 +11,11 @@ class InverterScreenItem extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final borderRadius = BorderRadius.circular(10.0);
     return GestureDetector(
       onTap: () => _navigateScreen(context),
       onLongPress: () => _navigateScreen(context),
       child: Column(
-
         children: [
-
           const Divider(),
           ListTile(
             title: Text(
@@ -32,6 +29,7 @@ class InverterScreenItem extends StatelessWidget {
             trailing: Container(
               width: 80,
               height: 80,
+              margin: const EdgeInsets.only(left: 5),
               color: Theme.of(context).colorScheme.secondary,
               child: Center(
                 child: Text(

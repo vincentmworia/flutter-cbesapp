@@ -22,7 +22,8 @@ class InverterScreen extends StatelessWidget {
         ),
       );
 
-  Widget _groupParameters(BuildContext context, String title, List list) => Column(
+  Widget _groupParameters(BuildContext context, String title, List list) =>
+      Column(
         children: [
           _titleText(context, title),
           ...(list.map((e) => InverterScreenItem(e as Map)).toList()),
@@ -30,29 +31,53 @@ class InverterScreen extends StatelessWidget {
         ],
       );
 
+  Widget _groupAdditionalInfo(
+          BuildContext context, String title, String code) =>
+      Column(
+        children: [
+          _titleText(context, title),
+          Text(code,
+              style: TextStyle(
+                fontSize: 20.0,
+                color: Theme.of(context).colorScheme.primary,
+              )),
+        ],
+      );
+
   @override
   Widget build(BuildContext context) {
-    final mainDataList = [];
-    // final operatorDataList = [];
-    // final standbyModeDataList = [];
-    // final faultModeDataList = [];
-    // final lineModeDataList = [];
-    // final batteryModeDataList = [];
+    List<Map> mainDataList = [];
+    late String faultCode;
+    late String warningCode;
 
-    inverterDataMain.forEach((key, value) {
-      if (key == "input_voltage" ||
-          key == "output_voltage" ||
-          key == "input_frequency" ||
-          key == "pv_voltage" ||
-          key == "pv_current" ||
-          key == "pv_power" ||
-          key == "ac_and_pv_charging_current" ||
-          key == "ac_charging_current" ||
-          key == "pv_charging_current") {
-        mainDataList.add({key: value});
+    // inverterDataMain.forEach((key, value) {
+    //   if (key == "input_voltage" ||
+    //       key == "output_voltage" ||
+    //       key == "input_frequency" ||
+    //       key == "pv_voltage" ||
+    //       key == "pv_current" ||
+    //       key == "pv_power" ||
+    //       key == "ac_and_pv_charging_current" ||
+    //       key == "ac_charging_current" ||
+    //       key == "pv_charging_current") {
+    //     mainDataList.add({key: value});
+    //   }
+    //   if (key == "fault_reference_code") {
+    //     faultCode = value;
+    //   }
+    //   if (key == "warning_indicator") {
+    //     warningCode = value;
+    //   }
+    // });
+
+    // print(useInverterData);
+    useInverterData.forEach((key, value) {
+      if (key == "main_data") {
+        (value as Map).forEach((k, val) {
+          mainDataList.add({k: val });
+        });
       }
     });
-
     print(mainDataList);
     return SafeArea(
       child: Scaffold(
@@ -69,10 +94,15 @@ class InverterScreen extends StatelessWidget {
               child: Column(
                 children: [
                   _groupParameters(context, "PARAMETERS", mainDataList),
-
-                  const SizedBox(
-                    height: 20,
-                  )
+                  // _groupAdditionalInfo(
+                  //     context, "FAULT - $faultCode", faultReferenceCode(faultCode)),
+                  // const Divider(),
+                  // _groupAdditionalInfo(
+                  //     context, "WARNING - $warningCode", warningIndicator(warningCode)),
+                  // const Divider(),
+                  // const SizedBox(
+                  //   height: 20,
+                  // )
                 ],
               ),
             ),
