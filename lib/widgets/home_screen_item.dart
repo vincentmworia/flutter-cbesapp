@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 
+import '../helpers/mqtt_root_widget.dart';
 import '../screens/home_screen.dart';
 import '../screens/inverter_screen.dart';
 
@@ -12,7 +13,7 @@ class HomeScreenItem extends StatelessWidget {
   void _navigateScreen(BuildContext context, String title) {
     switch (title) {
       case HomeScreen.inverter:
-        Navigator.pushNamed(context, InverterScreen.routeName);
+        Navigator.pushNamed(context, MainHome.routeName);
         break;
       default:
         // todo CHANGE TO THE DEFAULT PAGE

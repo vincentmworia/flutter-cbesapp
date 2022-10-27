@@ -1,78 +1,3 @@
-final Map inverterData = {
-  "main_data": {
-    "input_voltage": "230V",
-    "output_voltage": "230V",
-    "input_frequency": "50Hz",
-    "pv_voltage": "260V",
-    "pv_current": "2.5A",
-    "pv_power": "500W",
-    "ac_and_pv_charging_current": "50A",
-    "ac_charging_current": "50A",
-    "pv_charging_current": "50A",
-  },
-  "fault_reference_code": "f02",
-  "warning_indicator": "06",
-  "operation_modes": {
-    // OPERATION MODES
-    /*Note: Standby mode:
-The inverter is not turned on yet but at this
-time, the inverter can charge
-battery without AC output.
-
-No output is supplied by the
-unit but it still can charge
-batteries.
-*/
-    "standby_mode": {
-      "charging_by_utility_and_pv_energy": "true",
-      "charging_by_utility": "false",
-      "charging_by_pv_energy": "false",
-      "no_charging": "false",
-    },
-
-    /*
-  Note: Fault mode:
-Errors are
-caused by inside circuit error
-or external reasons such as
-over temperature, output short
-circuited and so on.
-
-PV energy and utility can charge batteries.
-   */
-    "fault_mode": {
-      "charging_by_utility_and_pv_energy": "true",
-      "charging_by_utility": "false",
-      "charging_by_pv_energy": "false",
-      "no_charging": "false",
-    },
-
-    /*
-  The unit will provide output
-power from the mains . It will
-also charge the battery at
-line mode.
-*/
-    "line_mode": {
-      "charging_by_utility_and_pv_energy": "true",
-      "charging_by_utility": "false",
-      "solar_energy_not_sufficient": "false",
-      "battery_not_connected": "false",
-      "power_from_utility": "false",
-    },
-
-/*
-The unit will provide output
-power from battery and /or PV power.*/
-    "battery_mode": {
-      "power_from_battery_and_pv_energy": "true",
-      "pv_energy_to_loads_and_charge_battery_no_utility": "false",
-      "power_from_battery": "false",
-      "power_from_pv_energy": "false",
-    },
-  }
-};
-
 String faultReferenceCode(String code) {
   var faultEvent = "null";
   switch (code) {
@@ -212,44 +137,59 @@ String decodeKey(String key) {
     case "Warning":
       rawKey = "PC charging current";
       break;
+    case "standby_mode":
+      rawKey = "Standby mode";
+      break;
+    case "fault_mode":
+      rawKey = "Fault mode";
+      break;
+    case "line_mode":
+      rawKey = "Line mode";
+      break;
+    case "battery_mode":
+      rawKey = "Battery mode";
+      break;
+    case "charging_by_utility_and_pv_energy":
+      rawKey = "Utility & PV charging";
+      break;
+    case "charging_by_utility":
+      rawKey = "Utility charging";
+      break;
+    case "charging_by_pv_energy":
+      rawKey = "PV charging";
+      break;
+    case "no_charging":
+      rawKey = "Not charging";
+      break;
+    case "solar_energy_not_sufficient":
+      rawKey = "Solar not sufficient";
+      break;
+    case "battery_not_connected":
+      rawKey = "Battery disconnected";
+      break;
+    case "power_from_utility":
+      rawKey = "Not charging";
+      break;
+
+    case "power_from_battery_and_pv_energy":
+      rawKey = "Power from battery & PV";
+      break;
+    case "pv_energy_to_loads_and_charge_battery_no_utility":
+      rawKey = "PV to load and charge battery\n${"\t" * 10}No Utility";
+      break;
+    case "power_from_battery":
+      rawKey = "Power from battery";
+      break;
+    case "power_from_pv_energy":
+      rawKey = "Power from PV";
+      break;
   }
   return rawKey;
 }
 
-Map inverterDataMain = {
-  "input_voltage": "235V",
-  "output_voltage": "34",
-  "input_frequency": "0",
-  "pv_voltage": "0",
-  "pv_current": "0",
-  "pv_power": "0",
-  "ac_and_pv_charging_current": "0",
-  "ac_charging_current": "0",
-  "pv_charging_current": "0",
-  "fault_reference_code": "f02",
-  "warning_indicator": "07",
-  "standby_charging_by_utility_and_pv_energy": "false",
-  "standby_charging_by_utility": "false",
-  "standby_charging_by_pv_energy": "false",
-  "standby_no_charging": "false",
-  "fault_mode_charging_by_utility_and_pv_energy": "false",
-  "fault_mode_charging_by_utility": "false",
-  "fault_mode_charging_by_pv_energy": "false",
-  "fault_mode_no_charging": "false",
-  "line_mode_charging_by_utility_and_pv_energy": "false",
-  "line_mode_charging_by_utility": "false",
-  "line_mode_solar_energy_not_sufficient": "false",
-  "line_mode_battery_not_connected": "false",
-  "line_mode_power_from_utility": "false",
-  "battery_mode_power_from_battery_and_pv_energy": "false",
-  "battery_mode_pv_energy_to_loads_and_charge_battery_no_utility": "false",
-  "battery_mode_power_from_battery": "false",
-  "battery_mode_power_from_pv_energy": "false",
-};
-
 var useInverterData = {
   "main_data": {
-    "input_voltage": "200" + "V",
+    "input_voltage": "212" + "V",
     "output_voltage": "234" + "V",
     "input_frequency": "50" + "Hz",
     "pv_voltage": "321" + "V",
@@ -263,27 +203,27 @@ var useInverterData = {
   "warning_indicator": "07",
   "operation_modes": {
     "standby_mode": {
-      "charging_by_utility_and_pv_energy": "false",
-      "charging_by_utility": "false",
+      "charging_by_utility_and_pv_energy": "true",
+      "charging_by_utility": "true",
       "charging_by_pv_energy": "false",
       "no_charging": "false",
     },
     "fault_mode": {
-      "charging_by_utility_and_pv_energy": "false",
-      "charging_by_utility": "false",
+      "charging_by_utility_and_pv_energy": "true",
+      "charging_by_utility": "true",
       "charging_by_pv_energy": "false",
       "no_charging": "false",
     },
     "line_mode": {
-      "charging_by_utility_and_pv_energy": "false",
+      "charging_by_utility_and_pv_energy": "true",
       "charging_by_utility": "false",
-      "solar_energy_not_sufficient": "false",
-      "battery_not_connected": "false",
-      "power_from_utility": "false",
+      "solar_energy_not_sufficient": "true",
+      "battery_not_connected": "true",
+      "power_from_utility": "true",
     },
     "battery_mode": {
       "power_from_battery_and_pv_energy": "false",
-      "pv_energy_to_loads_and_charge_battery_no_utility": "false",
+      "pv_energy_to_loads_and_charge_battery_no_utility": "true",
       "power_from_battery": "false",
       "power_from_pv_energy": "false",
     },

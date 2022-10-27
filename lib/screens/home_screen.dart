@@ -6,7 +6,7 @@ import '../widgets/custom_grid_view.dart';
 
 class HomeScreen extends StatelessWidget {
   const HomeScreen({Key? key}) : super(key: key);
-  static const routeName = "home_screen/";
+  static const routeName = "/home_screen";
   static const inverter = "Inverter";
 
   @override
@@ -15,6 +15,7 @@ class HomeScreen extends StatelessWidget {
       child: Scaffold(
         appBar: AppBar(
           title: const Text(MyApp.appTitle),
+          leading: Container(),
         ),
         body: const CustomGridView([
           HomeScreenItem(title: inverter, imageUrl: "inverter_image.jpg"),

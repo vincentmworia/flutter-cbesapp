@@ -15,8 +15,8 @@ class InverterScreenItem extends StatelessWidget {
           title: Text(
             decodeKey(itemData.keys.toList()[0].toString()),
             style: TextStyle(
-                fontSize: 20.0,
-                color: Theme.of(context).colorScheme.secondary,
+                fontSize: 18.0,
+                color: Theme.of(context).colorScheme.primary,
                 fontWeight: FontWeight.bold,
                 overflow: TextOverflow.ellipsis),
           ),
@@ -24,16 +24,12 @@ class InverterScreenItem extends StatelessWidget {
             width: 80,
             height: 80,
             margin: const EdgeInsets.only(left: 5),
-            decoration: BoxDecoration(
-              color: Theme.of(context).colorScheme.secondary,
-              borderRadius: BorderRadius.circular(5.0),
-            ),
             child: Center(
               child: Text(
                 itemData.values.toList()[0].toString(),
-                style: TextStyle(
+                style:  TextStyle(
                   fontSize: 20.0,
-                  color: Theme.of(context).colorScheme.primary,
+                  color: Theme.of(context).colorScheme.secondary,
                 ),
               ),
             ),
